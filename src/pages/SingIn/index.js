@@ -1,14 +1,27 @@
-import React from "react";
-import { 
+import React, { useEffect, useState } from "react";
+import {
     View,
     Text,
-    StyleSheet,
     TextInput,
-    TouchableOpacity
- } from "react-native";
- import * as animatable from 'react-native-animatable'
+    TouchableOpacity,
+    Alert
+} from "react-native";
+import * as animatable from 'react-native-animatable';
+import { useNavigation } from '@react-navigation/native'
+import styles from './styles'
+import { handleLogin } from "./user.controller";
 
-export  default function Welcome() {
+
+
+export default function Login() {
+    const navigation = useNavigation();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const userLogin = () => {
+        handleLogin(username, password, navigation);
+    };
+
     return (
         <View 
         style={styles.container}>
@@ -26,25 +39,33 @@ export  default function Welcome() {
             <animatable.View delay={1000} animation='fadeInUp' style = {styles.containerForm}>
                 <Text style={styles.login}>Entre com sua conta</Text>
 
-                <Text style={styles.title}>Email ou CPF</Text>
+                <Text style={styles.title}>Nome de Usuário</Text>
                 <TextInput
-                placeholder="Digite o E-mail ou seu CPF"
+                placeholder="Nome de Usuário"
+                value={username}
+                onChangeText={setUsername}
                 style = {styles.input}>
                 </TextInput>
 
                 <Text style={styles.title}>Senha</Text>
                 <TextInput
                 placeholder="Digite sua senha"
+                value={password}
+                onChangeText={setPassword}
                 style = {styles.input}
                 secureTextEntry = {true}>
                 </TextInput>
                 
 
-                <TouchableOpacity style={styles.button}>
-                    <Text style= {styles.buttonText}>Entrar</Text>
+                <TouchableOpacity style={styles.button}
+                onPress={userLogin}>
+                    <Text style= {styles.buttonText}>
+                        Entrar
+                        </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.buttonRegister}>
+                <TouchableOpacity style={styles.buttonRegister}
+                onPress ={() => navigation.navigate('register')}>
                     <Text style= {styles.registerText}>Não possui uma conta? Cadastre-se</Text>
                 </TouchableOpacity>
 
@@ -53,74 +74,3 @@ export  default function Welcome() {
     );
     }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#CFCFCF',
-    },
-    containerLogo: {
-        width: '80%',
-        alignSelf: 'center',
-        marginTop: '10%',
-    },
-    containerHeader: {
-       marginBottom: '30%',
-       marginTop: '5%',
-       paddingStart: '5%',
-    },
-    message:{
-        fontSize: 28,
-        fontWeight: 'bold',
-        color: '#000'
-    },
-    containerForm: {
-        flex: 1,
-        backgroundColor: '#FFF',
-        borderTopLeftRadius: 25,
-        borderTopRightRadius: 25,
-        paddingStart: '10%',
-        paddingEnd: '10%',
-        paddingTop: '10%',
-    },
-    login: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#000',
-        marginBottom: '5%'
-    },
-    title: {
-        fontSize: 18,
-        color: '#000',
-        marginTop: '8%',
-        marginBottom: '5%'
-    },
-    input: {
-        borderWidth: 1,
-        borderColor: '#000',
-        borderRadius: 5,
-        padding: 10,
-        marginBottom: '1%',
-        alignItems: 'center',
-    },
-    button: {
-        backgroundColor: '#2358FF',
-        borderRadius: 5,
-        padding: 15,
-        alignItems: 'center',
-        marginTop: '15%'
-    },
-    buttonText: {
-        color: '#FFF',
-        fontSize: 18,
-        fontWeight: 'bold'
-    },
-    buttonRegister: {
-        alignSelf: 'center',
-        marginTop: '5%'
-    },
-    registerText: {
-        color: '#A1A1A1',
-        fontSize: 16,
-        fontStyle: 'italic'
-    }
-});
