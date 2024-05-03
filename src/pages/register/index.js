@@ -9,7 +9,6 @@ import {
 import * as animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native'
 import styles from './styles'
-import api from "../../services/api";
 import { handleRegister } from "./user.controller";
 
 

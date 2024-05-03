@@ -4,6 +4,8 @@ import SignIn from '../pages/SingIn';
 import Welcome from '../pages/welcome';
 import Register from '../pages/register';
 import Home from '../pages/home';
+import UserList from '../pages/Users';
+import EditUserScreen from '../pages/editUsers';
 
 
 const stack = createNativeStackNavigator();
@@ -11,16 +13,11 @@ const stack = createNativeStackNavigator();
 export default function Routes() {
     return (
         <stack.Navigator>
-            {/* {<stack.Screen 
-            name="UserScreen" 
-            component={UserScreen}
-            /> } */}
             <stack.Screen 
             name="Welcome" 
             component={Welcome}
-            // options={{headerShown: false}} 
+            options={{headerShown: false}} 
             />
-
             <stack.Screen 
             name="SignIn" 
             component={SignIn} 
@@ -34,6 +31,16 @@ export default function Routes() {
             <stack.Screen 
             name="home" 
             component={Home} 
+            options={{headerShown: false}} 
+            />
+            <stack.Screen 
+            name="UserList" 
+            component={UserList} 
+            options={{headerShown: false}} 
+            />
+            <stack.Screen 
+            name="editUser" 
+            component={EditUserScreen} 
             options={{headerShown: false}} 
             />
         </stack.Navigator>

@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
@@ -7,26 +7,68 @@ const styles = StyleSheet.create({
     },
     containerLogo: {
         width: '80%',
-        flex: 1,
         alignSelf: 'center',
         marginTop: '10%',
-        
     },
     containerHeader: {
-        alignItems: 'center',
-        marginBottom: '5%',
-        marginTop: '20%',
+       marginBottom: '15%',
+       marginTop: '5%',
+       paddingStart: '5%',
+    },
+    message:{
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#000'
     },
     containerForm: {
-        flex1: 1,
-        width: '90%',
-        justifyContent: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 0.5)',
-        paddingVertical: 20,
-        borderRadius: 25,
+        flex: 1,
+        backgroundColor: '#FFF',
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+        paddingStart: '10%',
+        paddingEnd: '10%',
+        paddingTop: '10%',
+    },
+    login: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#000',
+        marginBottom: '5%'
+    },
+    title: {
+        fontSize: 18,
+        color: '#000',
+        marginTop: '8%',
+        marginBottom: '5%'
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: '#000',
+        borderRadius: 5,
+        padding: 10,
+        marginBottom: '1%',
+        alignItems: 'center',
+    },
+    button: {
+        backgroundColor: '#2358FF',
+        borderRadius: 10,
+        padding: 15,
+        alignItems: 'center',
+        marginTop: '55%'
+    },
+    buttonText: {
+        color: '#FFF',
+        fontSize: 18,
+        fontWeight: 'bold'
+    },
+    buttonRegister: {
         alignSelf: 'center',
-        paddingBottom: '20%',
-        marginBottom: '10%',
+        marginTop: '5%'
+    },
+    registerText: {
+        color: '#A1A1A1',
+        fontSize: 16,
+        fontStyle: 'italic'
     }
 });
 

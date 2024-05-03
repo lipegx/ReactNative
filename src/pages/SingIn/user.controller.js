@@ -11,8 +11,16 @@ export const handleLogin = async (username, password, navigation) => {
       const response = await api.post('/auth/login', { username, password });
       console.log('Login Success:', response.data)
       navigation.navigate('home');
+      const userName = "NomeDoUsuarioLogado"; 
+      AsyncStorage.setItem('userName', userName)
+        .then(() => {
+          console.log('Nome do usuário salvo!');
+        })
+        .catch(error => {
+          console.log('Erro ao salvar nome do usuário:', error);
+        });
     } catch (error) {
       console.error('login failed:', error);
-      Alert.alert('Erro', 'Falha ao logar');
+      Alert.alert('Seu login ou senha estão incorretos', 'Tente novamente');
     }
   };

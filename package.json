@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-navigation/native-stack": "^6.9.26",
     "axios": "^1.6.8",
     "cors": "^2.8.5",
@@ -20,7 +21,8 @@
     "node": "^18.20.2",
     "react": "18.2.0",
     "react-native": "0.73.6",
-    "react-native-animatable": "^1.4.0"
+    "react-native-animatable": "^1.4.0",
+    "react-native-async-storage": "^0.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

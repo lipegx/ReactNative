@@ -1,21 +1,29 @@
+// Home.js
 import React, { useEffect, useState } from "react";
 import {
     View,
     Text,
-    TextInput,
-    TouchableOpacity,
-    Alert
+    TouchableOpacity
 } from "react-native";
 import * as animatable from 'react-native-animatable';
-import { useNavigation } from '@react-navigation/native'
-import styles from './styles'
+import { useNavigation } from '@react-navigation/native';
+import styles from './styles';
+import { getUserName } from "./user.controller";
 
-export  default function Home() {
+export default function Home() {
     const navigation = useNavigation();
-    function login(){
-        if (username == "")
-        Alert.alert('Erro', 'Preencha o campo de usuário');
-    }
+    const [userName, setUserName] = useState('');
+
+    useEffect(() => {
+        const fetchUserName = async () => {
+            const name = await getUserName();
+            if (name) {
+                setUserName(name);
+            }
+        };
+      
+        fetchUserName();
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -24,12 +32,12 @@ export  default function Home() {
                 resizeMode="contain"
                 animation={'fadeInDown'} />
 
-           
             <animatable.View delay={1000} animation='fadeInUp' style={styles.containerForm}>
-            
-            
-
-
+                <Text style={styles.login}>Bem vindo, {userName}.</Text>
+                
+                <TouchableOpacity  onPress={() => navigation.navigate('UserList')} style={styles.button}>
+                    <Text style={styles.buttonText}>Listar Usuários</Text>
+                </TouchableOpacity>
             </animatable.View>
         </View>
     );
