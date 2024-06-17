@@ -1,5 +1,5 @@
 import React from 'react';
-import Routes from './components/Routes'; // Adjust the import path as necessary
+import Routes from './components/Routes';
 
 const App = () => {
     return <Routes />;
