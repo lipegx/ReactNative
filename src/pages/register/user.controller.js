@@ -1,15 +1,18 @@
-import { Alert } from 'react-native';
-import api from '../../services/api';
+import axios from 'axios';
 
-
-export const handleRegister = async (name, username, email, password, confirmPassword, navigation) => {
+export const handleRegister = async (name, username, email, password, confirmPassword, history) => {
     try {
-      const response = await api.post('/auth/register', 
-      { name, username, email, password, confirmPassword: password});
-      console.log('User registered:', response.data)
-      navigation.navigate('Welcome');
+        const response = await axios.post('/api/register', {
+            name,
+            username,
+            email,
+            password,
+            confirmPassword,
+        });
+        alert('Registered successfully!');
+        history.push('/signin');
     } catch (error) {
-      console.error('Registration failed:', error);
-      Alert.alert('Erro', 'Falha ao cadastrar usuário');
+        console.error(error);
+        alert('Registration failed!');
     }
-} 
+};

@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    Alert
-} from "react-native";
-import * as animatable from 'react-native-animatable';
-import { useNavigation } from '@react-navigation/native'
-import styles from './styles'
-import { handleRegister } from "./user.controller";
+    Container,
+    ContainerLogo,
+    ContainerHeader,
+    ContainerForm,
+    Message,
+    Login,
+    Title,
+    Input,
+    Button,
+    ButtonRegister
+} from './styles';
+import { handleRegister } from './user.controller';
+import logo from '../../../assets/logo.png';
 
-
-export default function Register() {
-    const navigation = useNavigation();
+const Register = () => {
+    const history = useHistory();
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -22,82 +25,59 @@ export default function Register() {
 
     const userRegister = () => {
         if (password !== confirmPassword) {
-            Alert.alert("Erro", "As senhas não coincidem");
-            return; 
+            alert('Erro: As senhas não coincidem');
+            return;
         }
-        handleRegister(name, username, email, password, confirmPassword, navigation);
+        handleRegister(name, username, email, password, confirmPassword, history);
     };
 
     return (
-        <View style={styles.container}>
-            <animatable.Image style={styles.containerLogo}
-                source={require('../../../assets/logo.png')}
-                resizeMode="contain"
-                animation={'fadeInDown'} />
-
-           
-            <animatable.View delay={1000} animation='fadeInUp' style={styles.containerForm}>
-            <View delay={500} animation='fadeInUp' style={styles.containerHeader}>
-                <Text style={styles.message}>
-                    Cadastre-se
-                </Text>
-            </View>
-                <Text style={styles.login}>Crie sua conta</Text>
-
-                <Text style={styles.title}>Nome</Text>
-                <TextInput
+        <Container>
+            <ContainerLogo src={logo} alt="Logo" />
+            <ContainerForm>
+                <ContainerHeader>
+                    <Message>Cadastre-se</Message>
+                </ContainerHeader>
+                <Login>Crie sua conta</Login>
+                <Title>Nome</Title>
+                <Input
                     value={name}
                     placeholder="Digite seu nome"
-                    onChangeText={setName}
-                    style={styles.input}>
-                </TextInput>
-
-                <Text style={styles.title}>Username</Text>
-                <TextInput
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <Title>Username</Title>
+                <Input
                     value={username}
                     placeholder="Digite seu nome de usuário"
-                    onChangeText={setUsername}
-                    style={styles.input}>
-                </TextInput>
-
-
-                <Text style={styles.title}>Email</Text>
-                <TextInput
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+                <Title>Email</Title>
+                <Input
                     value={email}
-                    placeholder="Digite seu nome"
-                    onChangeText={setEmail}
-                    style={styles.input}>
-                </TextInput>
-
-                <Text style={styles.title}>Senha</Text>
-                <TextInput
+                    placeholder="Digite seu email"
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <Title>Senha</Title>
+                <Input
+                    type="password"
                     value={password}
                     placeholder="Digite sua senha"
-                    onChangeText={setPassword}
-                    style={styles.input}
-                    secureTextEntry={true}>
-                </TextInput>
-
-                <Text style={styles.title}>Confirme sua senha</Text>
-                <TextInput
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <Title>Confirme sua senha</Title>
+                <Input
+                    type="password"
                     value={confirmPassword}
                     placeholder="Confirme sua senha"
-                    onChangeText={setConfirmPassword}
-                    style={styles.input}
-                    secureTextEntry={true}>
-                </TextInput>
-
-                <TouchableOpacity style={styles.button}
-                onPress={userRegister}>
-                    <Text style={styles.buttonText}>Cadastrar</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.buttonRegister}
-                onPress = {() => navigation.navigate('SignIn')}>
-                    <Text style={styles.registerText}>Já possui uma conta? Entre</Text>
-                </TouchableOpacity>
-            </animatable.View>
-        </View>
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <Button onClick={userRegister}>Cadastrar</Button>
+                <ButtonRegister onClick={() => history.push('/signin')}>
+                    Já possui uma conta? Entre
+                </ButtonRegister>
+            </ContainerForm>
+        </Container>
     );
-}
+};
 
+export default Register;
