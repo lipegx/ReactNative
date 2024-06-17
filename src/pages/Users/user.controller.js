@@ -1,10 +1,8 @@
-import { Alert } from 'react-native';
-import api from '../../services/api';
+import axios from 'axios';
 
-
-export const listUsers = async (navigation) => {
+export const listUsers = async () => {
     try {
-        const response = await api.get('/listUsers');
+        const response = await axios.get('/api/listUsers');
         if (response.data) {
             console.log('Usuários recuperados com sucesso:', response.data);
             return response.data;
@@ -16,29 +14,15 @@ export const listUsers = async (navigation) => {
 };
 
 export const handleDelete = async (userId, onSuccess, onError) => {
-        
-    Alert.alert(
-        "Confirmação de Exclusão",
-        "Você tem certeza que deseja excluir este usuário?",
-        [
-            {
-                text: "Cancelar",
-                onPress: () => console.log("Cancel Pressed"),
-                style: "cancel"
-            },
-            {
-                text: "Sim, excluir",
-                onPress: () => deleteUser(userId, onSuccess, onError),
-                style: "destructive"
-            }
-        ],
-        { cancelable: false }
-    );
+    const confirmDelete = window.confirm("Você tem certeza que deseja excluir este usuário?");
+    if (confirmDelete) {
+        deleteUser(userId, onSuccess, onError);
+    }
 };
 
 const deleteUser = async (userId, onSuccess, onError) => {
     try {
-        const response = await api.delete(`/listUsers/${userId}`); // Ajuste a URL conforme necessário
+        const response = await axios.delete(`/api/listUsers/${userId}`);
         if (response.status === 200) {
             console.log("Usuário excluído com sucesso.");
             onSuccess();

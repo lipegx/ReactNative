@@ -1,58 +1,79 @@
-import { StyleSheet } from 'react-native';
+import styled from 'styled-components';
 
-const styles = StyleSheet.create({
-    title: {
-        marginTop: '20%',
-        marginBottom: '5%',
-        fontSize: 28,
-        fontWeight: 'bold',
-        color: '#000',
-    },
-    userContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: 10,
-        marginVertical: 5,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 25,
-        backgroundColor: 'white', // Garante que o fundo seja branco
-        width: '100%', // Usa 100% da largura disponível
-    },
-    userInfo: {
-        flex: 1,
-        color: 'black', 
-        fontSize: 16,
-        marginHorizontal: 15,
-    },
-    buttonsContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderRadius: 20,
-    },
-    buttonEdit: {
-        marginLeft: 10,
-        padding: 10,
-        backgroundColor: '#add8e6',
-        borderRadius: 10,
-    },
-    buttonDelete: {
-        marginLeft: 10,
-        padding: 10,
-        backgroundColor: 'red',
-        borderRadius: 10,
-        color: 'white',
-    },
-    buttonDeleteText: {
-        color: 'white',
-    },
+export const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background-color: #CFCFCF;
+`;
 
-    list:{
-        width: '95%',
-        marginTop: '0%',
-        paddingRight: '3%',
-    }
-});
+export const Header = styled.div`
+    display: flex;
+    justify-content: center;
+    width: 100%;
+`;
 
-export default styles;
+export const Title = styled.h1`
+    margin-top: 20%;
+    margin-bottom: 5%;
+    font-size: 28px;
+    font-weight: bold;
+    color: #000;
+`;
+
+export const UserContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    background-color: white;
+    width: 95%;
+`;
+
+export const UserInfo = styled.div`
+    flex: 1;
+    font-size: 16px;
+    margin: 0 15px;
+`;
+
+export const ButtonsContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 20px;
+`;
+
+export const ButtonEdit = styled.button`
+    margin-left: 10px;
+    padding: 10px;
+    background-color: #add8e6;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+`;
+
+export const ButtonDelete = styled.button`
+    margin-left: 10px;
+    padding: 10px;
+    background-color: red;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+`;
+
+export const ButtonDeleteText = styled.span`
+    color: white;
+`;
+
+export const List = styled.div`
+    width: 95%;
+    margin-top: 0;
+    padding-right: 3%;
+`;

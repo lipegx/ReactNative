@@ -1,17 +1,18 @@
-// Home.js
-import React, { useEffect, useState } from "react";
-import {
-    View,
-    Text,
-    TouchableOpacity
-} from "react-native";
-import * as animatable from 'react-native-animatable';
-import { useNavigation } from '@react-navigation/native';
-import styles from './styles';
-import { getUserName } from "./user.controller";
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { 
+    Container, 
+    ContainerLogo, 
+    ContainerForm, 
+    Login, 
+    Button, 
+    ButtonText 
+} from './styles';
+import { getUserName } from './user.controller';
+import logo from '../../../assets/logo.png'; // Update the path as per your structure
 
-export default function Home() {
-    const navigation = useNavigation();
+const Home = () => {
+    const history = useHistory();
     const [userName, setUserName] = useState('');
 
     useEffect(() => {
@@ -21,24 +22,20 @@ export default function Home() {
                 setUserName(name);
             }
         };
-      
         fetchUserName();
     }, []);
 
     return (
-        <View style={styles.container}>
-            <animatable.Image style={styles.containerLogo}
-                source={require('../../../assets/logo.png')}
-                resizeMode="contain"
-                animation={'fadeInDown'} />
-
-            <animatable.View delay={1000} animation='fadeInUp' style={styles.containerForm}>
-                <Text style={styles.login}>Bem vindo, {userName}.</Text>
-                
-                <TouchableOpacity  onPress={() => navigation.navigate('UserList')} style={styles.button}>
-                    <Text style={styles.buttonText}>Listar Usuários</Text>
-                </TouchableOpacity>
-            </animatable.View>
-        </View>
+        <Container>
+            <ContainerLogo src={logo} alt="Logo" />
+            <ContainerForm>
+                <Login>Bem vindo, {userName}.</Login>
+                <Button onClick={() => history.push('/userlist')}>
+                    <ButtonText>Listar Usuários</ButtonText>
+                </Button>
+            </ContainerForm>
+        </Container>
     );
-}
+};
+
+export default Home;

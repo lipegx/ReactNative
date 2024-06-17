@@ -1,17 +1,18 @@
-import api from '../../services/api';
+import axios from 'axios';
 
-export const updateUser = async (userId, updatedData, onSuccess, onError) => {
+export const handleRegister = async (name, username, email, password, confirmPassword, history) => {
     try {
-        const response = await api.put(`/listUsers/${userId}`, updatedData);
-        if (response.status === 200) {
-            console.log("Usuário atualizado com sucesso.");
-            onSuccess();
-        } else {
-            console.error("Falha ao atualizar usuário:", response.status);
-            onError();
-        }
+        const response = await axios.post('/api/register', {
+            name,
+            username,
+            email,
+            password,
+            confirmPassword,
+        });
+        alert('Registered successfully!');
+        history.push('/signin');
     } catch (error) {
-        console.error("Erro ao atualizar usuário:", error);
-        onError();
+        console.error(error);
+        alert('Registration failed!');
     }
 };

@@ -1,76 +1,61 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    Alert
-} from "react-native";
-import * as animatable from 'react-native-animatable';
-import { useNavigation } from '@react-navigation/native'
-import styles from './styles'
-import { handleLogin } from "./user.controller";
+    Container,
+    ContainerLogo,
+    ContainerHeader,
+    ContainerForm,
+    Message,
+    LoginText,
+    Title,
+    Input,
+    Button,
+    ButtonText,
+    ButtonRegister,
+    RegisterText
+} from './styles';
+import { handleLogin } from './user.controller';
+import logo from '../../../assets/logo.png';
 
-
-
-export default function Login() {
-    const navigation = useNavigation();
+const Login = () => {
+    const history = useHistory();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const userLogin = () => {
-        handleLogin(username, password, navigation);
+        handleLogin(username, password, history);
     };
 
     return (
-        <View 
-        style={styles.container}>
-
-            <animatable.Image style = {styles.containerLogo}
-                    source={require('../../../assets/logo.png')}
-                    resizeMode="contain"
-                    animation={'fadeInDown'}></animatable.Image>
-
-            <animatable.View delay={500} animation='fadeInLeft' style = {styles.containerHeader}>
-                <Text style = {styles.message}>
-                    Bem vindo(a)
-                </Text>
-            </animatable.View>
-            <animatable.View delay={1000} animation='fadeInUp' style = {styles.containerForm}>
-                <Text style={styles.login}>Entre com sua conta</Text>
-
-                <Text style={styles.title}>Nome de Usuário</Text>
-                <TextInput
-                placeholder="Nome de Usuário"
-                value={username}
-                onChangeText={setUsername}
-                style = {styles.input}>
-                </TextInput>
-
-                <Text style={styles.title}>Senha</Text>
-                <TextInput
-                placeholder="Digite sua senha"
-                value={password}
-                onChangeText={setPassword}
-                style = {styles.input}
-                secureTextEntry = {true}>
-                </TextInput>
-                
-
-                <TouchableOpacity style={styles.button}
-                onPress={userLogin}>
-                    <Text style= {styles.buttonText}>
-                        Entrar
-                        </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.buttonRegister}
-                onPress ={() => navigation.navigate('register')}>
-                    <Text style= {styles.registerText}>Não possui uma conta? Cadastre-se</Text>
-                </TouchableOpacity>
-
-            </animatable.View>
-        </View>
+        <Container>
+            <ContainerLogo src={logo} alt="Logo" />
+            <ContainerHeader>
+                <Message>Bem vindo(a)</Message>
+            </ContainerHeader>
+            <ContainerForm>
+                <LoginText>Entre com sua conta</LoginText>
+                <Title>Nome de Usuário</Title>
+                <Input
+                    placeholder="Nome de Usuário"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+                <Title>Senha</Title>
+                <Input
+                    type="password"
+                    placeholder="Digite sua senha"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <Button onClick={userLogin}>
+                    <ButtonText>Entrar</ButtonText>
+                </Button>
+                <ButtonRegister onClick={() => history.push('/register')}>
+                    <RegisterText>Não possui uma conta? Cadastre-se</RegisterText>
+                </ButtonRegister>
+            </ContainerForm>
+        </Container>
     );
-    }
+};
 
+export default Login;

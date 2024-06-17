@@ -1,14 +1,22 @@
-
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
-import { listUsers } from './user.controller';
-import styles from './styles';
-import { handleDelete } from './user.controller';
-import {useNavigation} from '@react-navigation/native';
+import { useHistory } from 'react-router-dom';
+import {
+    Container,
+    Header,
+    Title,
+    UserContainer,
+    UserInfo,
+    ButtonsContainer,
+    ButtonEdit,
+    ButtonDelete,
+    ButtonDeleteText,
+    List
+} from './styles';
+import { listUsers, handleDelete } from './user.controller';
 
-export default function UserList() {
+const UserList = () => {
     const [users, setUsers] = useState([]);
-    const navigation = useNavigation();
+    const history = useHistory();
 
     useEffect(() => {
         fetchUsers();
@@ -28,7 +36,7 @@ export default function UserList() {
     };
 
     const onDeleteError = () => {
-        Alert.alert("Erro", "Não foi possível excluir o usuário.");
+        alert("Erro: Não foi possível excluir o usuário.");
     };
 
     const deleteUser = (userId) => {
@@ -36,34 +44,38 @@ export default function UserList() {
     };
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <View style={styles.header}>
-                <Text style={styles.title}>Lista de Usuários</Text>
-            </View>
-            <FlatList style={styles.list}
-                data={users}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
-                    <View style={styles.userContainer}>
-                        <View style={styles.userInfo}>
-                            <Text>Nome: {item.name}</Text>
-                            <Text>Login: {item.username}</Text>
-                            <Text>E-mail: {item.email}</Text>
-                        </View>
-                        <View style={styles.buttonsContainer}>
-                            <TouchableOpacity onPress={
-                                () => navigation.navigate('editUser', { userId: item.id, currentName: item.name, currentEmail: item.email, currentUsername: item.username })
-                            } style={styles.buttonEdit}>
-                                <Text>Editar</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => deleteUser(item.id)} style={styles.buttonDelete}>
-                                <Text style={styles.buttonDeleteText}>Excluir</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                )}  
-            />
-        </View>
+        <Container>
+            <Header>
+                <Title>Lista de Usuários</Title>
+            </Header>
+            <List>
+                {users.map((item) => (
+                    <UserContainer key={item.id}>
+                        <UserInfo>
+                            <p>Nome: {item.name}</p>
+                            <p>Login: {item.username}</p>
+                            <p>E-mail: {item.email}</p>
+                        </UserInfo>
+                        <ButtonsContainer>
+                            <ButtonEdit
+                                onClick={() => history.push(`/editUser/${item.id}`, {
+                                    userId: item.id,
+                                    currentName: item.name,
+                                    currentEmail: item.email,
+                                    currentUsername: item.username
+                                })}
+                            >
+                                Editar
+                            </ButtonEdit>
+                            <ButtonDelete onClick={() => deleteUser(item.id)}>
+                                <ButtonDeleteText>Excluir</ButtonDeleteText>
+                            </ButtonDelete>
+                        </ButtonsContainer>
+                    </UserContainer>
+                ))}
+            </List>
+        </Container>
     );
-}
+};
 
+export default UserList;
