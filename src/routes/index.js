@@ -1,48 +1,27 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import SignIn from '../pages/SingIn';
-import Welcome from '../pages/welcome';
-import Register from '../pages/register';
-import Home from '../pages/home';
-import UserList from '../pages/Users';
-import EditUserScreen from '../pages/editUsers';
+import SignIn from '../pages/SignIn';
+import Welcome from '../pages/Welcome';
+import Register from '../pages/Register';
+import Home from '../pages/Home';
+import UserList from '../pages/UserList';
+import EditUserScreen from '../pages/EditUserScreen';
 
-
-const stack = createNativeStackNavigator();
-
-export default function Routes() {
+const Routes = () => {
     return (
-        <stack.Navigator>
-            <stack.Screen 
-            name="Welcome" 
-            component={Welcome}
-            options={{headerShown: false}} 
-            />
-            <stack.Screen 
-            name="SignIn" 
-            component={SignIn} 
-            options={{headerShown: false}} 
-            />
-            <stack.Screen 
-            name="register" 
-            component={Register} 
-            options={{headerShown: false}} 
-            />
-            <stack.Screen 
-            name="home" 
-            component={Home} 
-            options={{headerShown: false}} 
-            />
-            <stack.Screen 
-            name="UserList" 
-            component={UserList} 
-            options={{headerShown: false}} 
-            />
-            <stack.Screen 
-            name="editUser" 
-            component={EditUserScreen} 
-            options={{headerShown: false}} 
-            />
-        </stack.Navigator>
+        <Router>
+            <Switch>
+                <Route path="/signin" component={SignIn} />
+                <Route path="/welcome" component={Welcome} />
+                <Route path="/register" component={Register} />
+                <Route path="/home" component={Home} />
+                <Route path="/userlist" component={UserList} />
+                <Route path="/edituser/:id" component={EditUserScreen} />
+                <Route path="/" component={Welcome} /> 
+            </Switch>
+        </Router>
     );
 }
+
+export default Routes;
